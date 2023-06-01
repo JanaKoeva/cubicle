@@ -1,20 +1,18 @@
 const express=require('express');
-const handlebars=require('express-handlebars');
-const path=require('path')
+
+
+const handlebarsConfigurator=require('./config/handlebarsConfig')
+const expressConfigurator=require('./config/expressConfig')
 
 const app=express();
 const PORT=5000;
 
-//Express config
-app.use(express.static(path.resolve(__dirname,'public')))
+ //Express config(app)
+expressConfigurator(app);
+// vmesto red 11 i red 5-require('./config/expressConfig')(app)
 
-//Handlebars config
-app.engine('hbs', handlebars.engine({
-    extname:'hbs',
-    
-}))
-app.set('view engine', 'hbs');
-app.set('views', 'src/views');
+//Handlebars config/app/
+handlebarsConfigurator(app);
 
 
 //Routes
