@@ -1,6 +1,6 @@
 const express=require('express');
 
-
+const homeController=require('./controllers/homeController')
 const handlebarsConfigurator=require('./config/handlebarsConfig')
 const expressConfigurator=require('./config/expressConfig')
 
@@ -16,7 +16,8 @@ handlebarsConfigurator(app);
 
 
 //Routes
-app.get('/', (req,res)=>{
-    res.render('index')
-});
+//app.get('/', homeController.getHome);
+app.use(homeController)
+
+
 app.listen(PORT,()=>console.log('Server is running on port 5000...'));
