@@ -1,5 +1,6 @@
 const uniqid=require('uniqid');
 const Cube=require('../models/Cube');
+const Accessory = require('../models/Accessory');
 const cubes=[];
 
 exports.getAll=async(search,from, to)=>{
@@ -18,8 +19,8 @@ return result;
 
 };
 
-exports.getOne=(cubeId)=>Cube.findById(cubeId);
-
+exports.getOne=(cubeId)=>Cube.findById(cubeId).populate('accessories');
+exports.getOneWithAccessories=(cubeId)=>this.getOne(cubeId).populate('accessories')
 
 exports.create=async (cubeData)=>{
     const cube=new Cube(cubeData);
@@ -28,4 +29,13 @@ exports.create=async (cubeData)=>{
 
 return cube;
 
+};
+
+exports.attachAccessory=async(cubeId,accesoryId)=>{
+    //await Cube.findByIdAndUpdate(cubeId,{$push:{accesories:accesoryId}})
+const cube=await Cube.findById(cubeId);
+cube.accessories.push(accesoryId);
+return cube.save();
+
 }
+
