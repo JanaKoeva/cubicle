@@ -22,6 +22,7 @@ await cubeManager.create({
     description,
     imageUrl,
     difficultyLevel:Number(difficultyLevel),
+    owner:req.user._id,
 })  
 res.redirect("/");
 //console.log(req.body);
